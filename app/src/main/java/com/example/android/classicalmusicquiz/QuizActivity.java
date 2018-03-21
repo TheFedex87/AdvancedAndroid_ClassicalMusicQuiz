@@ -71,13 +71,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private SimpleExoPlayerView mPlayerView;
     private MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
-
+    private NotificationManager mNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         // Initialize the player view.
         mPlayerView = (SimpleExoPlayerView) findViewById(R.id.playerView);
@@ -220,8 +221,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             .addAction(restartAction)
             .setStyle(new NotificationCompat.MediaStyle().setMediaSession(mMediaSession.getSessionToken()).setShowActionsInCompactView(0, 1));
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
+
+        mNotificationManager.notify(0, builder.build());
     }
 
     /**
@@ -253,6 +254,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
      * Release ExoPlayer.
      */
     private void releasePlayer() {
+        mNotificationManager.cancelAll();
         mExoPlayer.stop();
         mExoPlayer.release();
         mExoPlayer = null;
