@@ -143,17 +143,17 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     class MySessionCallback extends MediaSessionCompat.Callback {
         @Override
         public void onPlay() {
-            super.onPlay();
+            mExoPlayer.setPlayWhenReady(true);
         }
 
         @Override
         public void onPause() {
-            super.onPause();
+            mExoPlayer.setPlayWhenReady(false);
         }
 
         @Override
         public void onSkipToPrevious() {
-            super.onSkipToPrevious();
+            mExoPlayer.seekTo(0);
         }
     }
 
