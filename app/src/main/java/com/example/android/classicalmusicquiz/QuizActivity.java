@@ -416,6 +416,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onPlay() {
             mExoPlayer.setPlayWhenReady(true);
+
         }
 
         @Override
